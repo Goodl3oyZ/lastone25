@@ -37,7 +37,8 @@ void List::insert(int d,int idx){
 		current = current->next;
 	}
 	n->next = current->next;
-	current->next = n;		
+	current->next = n;	
+	size++;
 }
 
 void List::show(){
@@ -64,3 +65,35 @@ void List::append(int d){
 }
 
 //Write List::remove() here
+
+void List::remove(int d){ //d=ตำแหน่ง
+    Node *n=new Node;
+    n->data=d;
+    if(d==0){   //1st 
+        Node *temp=root;
+        root=root->next;
+        delete temp;
+    }
+    else if(d==size-1){ //last
+        Node *current = root;
+        Node *p;
+        while(current->next)
+        {
+            if(current->next->next==NULL)    p=current->next;
+            current=current->next;
+        }
+        p->next=NULL;
+        delete current;
+    }else{
+        Node *current = root;
+        for(int i=0;i<d-1;i++)
+        {
+            current=current->next;
+        }
+        Node *p=current->next;
+        current->next=current->next->next;
+        delete p;
+    }
+    size--; 
+}
+
